@@ -11,11 +11,20 @@ public class RegLog {
         String Password;
 
         Registration(String FullName_, String Phonenumber_, String Email_, String Username_, String Password_) {
+            if (Validation.Is_Correct_UserName(Username_)) {
+                Username = Username_;
+            }
+            if (Validation.Is_Correct_PhoneNumber(Phonenumber_)) {
+                Phonenumber = Phonenumber_;
+            }
+            if (Validation.Is_Correct_Email(Email_)) {
+                Email = Email_;
+            }
+            if (Validation.Is_Correct_Password(Password_)) {
+                Password = Password_;
+            }
             FullName = FullName_;
-            Phonenumber = Phonenumber_;
-            Email = Email_;
-            Username = Username_;
-            Password = Password_;
+
         }
 
     }
