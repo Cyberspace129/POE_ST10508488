@@ -137,9 +137,15 @@ public class RegLog {
             if (!Email.matches("(?<=[@]).[a-z]+(?=[.])")) {
                 HasEmailProvider = false;
             }
-            if (Email.matches("(?<=[.])")) { // bayden@gmail.edu
-
+            if (!Email.matches("(?<=[.])")) { // bayden@gmail.edu
+                HasEmailDomain = false;
             }
+
+            if (HasEmailName & HasEmailAt & HasEmailProvider & HasEmailDomain) {
+                System.out.println("Email successfully added");
+            }
+
+            return HasEmailName & HasEmailAt & HasEmailProvider & HasEmailDomain;
         }
     }
 
