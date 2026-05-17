@@ -11,6 +11,7 @@ public class RegLog {
         String Password;
 
         Registration(String FullName_, String Phonenumber_, String Email_, String Username_, String Password_) {
+<<<<<<< Updated upstream
             if (Validation.Is_Correct_UserName(Username_)) {
                 Username = Username_;
             }
@@ -26,120 +27,101 @@ public class RegLog {
             FullName = FullName_;
 
         }
+=======
+>>>>>>> Stashed changes
 
+            if (!Validation.Is_Correct_UserName(Username_))
+                throw new IllegalArgumentException("Invalid username");
+
+            if (!Validation.Is_Correct_PhoneNumber(Phonenumber_))
+                throw new IllegalArgumentException("Invalid phone number");
+
+            if (!Validation.Is_Correct_Email(Email_))
+                throw new IllegalArgumentException("Invalid email");
+
+            if (!Validation.Is_Correct_Password(Password_))
+                throw new IllegalArgumentException("Invalid password");
+
+            this.FullName = FullName_;
+            this.Username = Username_;
+            this.Phonenumber = Phonenumber_;
+            this.Email = Email_;
+            this.Password = Password_;
+        }
     }
 
     public static class Login {
-        public static boolean CorrectLoginIformation(StoredUser.User User, String Username, String Password) {
-            boolean IsCorrectUserName = true;
-            boolean IsCorrectPassword = true;
+        public static boolean CorrectLoginIformation(StoredUser.User user, String username, String password) {
 
-            // &, | are boolean opperators
-            // ==, >=, <=, != are conditional opperators
+            boolean isCorrectUserName = user.UserName.equals(username);
+            boolean isCorrectPassword = user.Password.equals(password);
 
-            if (!(User.UserName == Username)) {
-                IsCorrectUserName = false;
+            if (isCorrectUserName && isCorrectPassword) {
+                System.out.println("You have successfully logged in.");
+                return true;
+            } else {
+                System.out.println("Username or Password is incorrect");
+                return false;
             }
-            if (!(User.Password == Password)) {
-                IsCorrectPassword = false;
-            }
-
-            String message = (IsCorrectPassword & IsCorrectUserName) ? "You have successfully logged in."
-                    : "Username or Password is incorrect";
-
-            System.out.println(message);
-
-            return IsCorrectPassword & IsCorrectUserName;
         }
     }
 
     public static class Validation {
 
-        public static boolean Is_Correct_UserName(String Username) {
-            boolean HasUnderScore = true;
-            boolean NoMoreThan5 = true;
+        public static boolean Is_Correct_UserName(String username) {
+            boolean hasUnderscore = username.contains("_");
+            boolean validLength = username.length() <= 5;
 
-            if (!Username.contains("_")) {
-                HasUnderScore = false;
-                System.out.println("The Username has no Underscore '_' ");
+            if (!hasUnderscore) {
+                System.out.println("Username must contain an underscore '_'");
             }
-            if (!(Username.length() <= 5)) {
-                NoMoreThan5 = false;
-                System.out.println("The Username must be less then 5 characters long");
+            if (!validLength) {
+                System.out.println("Username must be 5 characters or less");
             }
-            String message = (HasUnderScore & NoMoreThan5) ? "Username successfully captued"
-                    : "Username not caputered correctly";
 
-            System.out.println(message);
+            boolean valid = hasUnderscore && validLength;
 
-            return HasUnderScore & NoMoreThan5;
+            System.out.println(valid ? "Username successfully captured" : "Username not captured correctly");
 
+            return valid;
         }
 
-        public static boolean Is_Correct_Password(String Password) {
-            boolean IsEightLong = true;
-            boolean HasCapitalLetter = true;
-            boolean HasNumber = true;
-            boolean HasSpecialCharacter = true;
+        public static boolean Is_Correct_Password(String password) {
+            String regex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$";
 
-            if (!(Password.length() >= 8)) {
-                IsEightLong = false;
-                System.out.println("Password is too short, must be 8 long minimum.");
-            }
-            if (!Password.matches("?=[0-9]")) {
-                HasCapitalLetter = false;
-                System.out.println("Password must have a Capital letter in it.");
-            }
-            if (!Password.matches("?=[A-Z]")) {
-                HasNumber = false;
-                System.out.println("Password must have a Numerical value in it.");
-            }
-            if (!Password.matches("?=[^a-zA-Z0-9]")) {
-                HasSpecialCharacter = false;
-                System.out.println("Password must have a SpecialCharacter in it.");
+            boolean valid = password.matches(regex);
+
+            if (!valid) {
+                System.out.println(
+                        "Password must be at least 8 characters and include a capital letter, number, and special character.");
+            } else {
+                System.out.println("Password successfully captured");
             }
 
-            String message = (IsEightLong & HasCapitalLetter & HasNumber & HasSpecialCharacter)
-                    ? "Password successfully captured"
-                    : "Password not caputered correctly";
-
-            System.out.println(message);
-
-            return IsEightLong & HasCapitalLetter & HasNumber & HasSpecialCharacter;
-
+            return valid;
         }
 
-        public static boolean Is_Correct_PhoneNumber(String Phonenumber) {
-            boolean CorrectInternationalCode = true;
-            boolean Is10Long = true;
+        public static boolean Is_Correct_PhoneNumber(String number) {
+            boolean valid = number.matches("^\\+27\\d{9}$");
 
-            if (!Phonenumber.matches("^[+27]")) { // boolean
-                CorrectInternationalCode = false;
-                System.out.println("Phone number does not start with +27");
-            }
-            if (!(Phonenumber.length() == 10)) { // int
-                Is10Long = false;
-                System.out.println("Phone number does not contain 10 characters.");
+            if (!valid) {
+                System.out.println("Phone number must start with +27 and contain 9 digits after it.");
+            } else {
+                System.out.println("Cell phone number successfully added.");
             }
 
-            String message = (CorrectInternationalCode & Is10Long) ? "Cell phone number successfully added."
-                    : "Cell phone number not successfully added.";
-
-            System.out.println(message);
-
-            return CorrectInternationalCode & Is10Long;
+            return valid;
         }
 
-        public static boolean Is_Correct_Email(String Email) {
-            // Example@email.com
-            boolean HasEmailName = true;
-            boolean HasEmailAt = true;
-            boolean HasEmailDomain = true;
-            boolean HasEmailProvider = true;
+        public static boolean Is_Correct_Email(String email) {
+            boolean valid = email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"); // https://regex101.com/
 
-            if (!Email.matches(".*?(?=@)")) {
-                HasEmailName = false;
+            if (!valid) {
+                System.out.println("Email not valid.");
+            } else {
+                System.out.println("Email successfully added");
             }
+<<<<<<< Updated upstream
             if (!Email.matches("[?=@]")) {
                 HasEmailAt = false;
             }
@@ -155,7 +137,10 @@ public class RegLog {
             }
 
             return HasEmailName & HasEmailAt & HasEmailProvider & HasEmailDomain;
+=======
+
+            return valid;
+>>>>>>> Stashed changes
         }
     }
-
 }

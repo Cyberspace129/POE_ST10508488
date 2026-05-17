@@ -39,6 +39,7 @@ public class Main {
         return new User(new RegLog.Registration(FullName, Phonenumber, Email, Username, Password));
     }
 
+<<<<<<< Updated upstream
     public static boolean CanLogin(StoredUser.User User) {
         Scanner in = new Scanner(System.in);
         boolean IsCorrectUserName = true;
@@ -63,6 +64,27 @@ public class Main {
             }
 
         return IsCorrectUserName & IsCorrectUserPass;
+=======
+    public static boolean CanLogin(StoredUser.User user) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter Username:");
+        String username = in.nextLine();
+
+        System.out.println("Enter Password:");
+        String password = in.nextLine();
+
+        boolean isCorrectUserName = username.equals(user.UserName);
+        boolean isCorrectUserPass = password.equals(user.Password);
+
+        if (isCorrectUserName && isCorrectUserPass) {
+            System.out.println("Welcome back " + user.UserName + ".");
+            return true;
+        } else {
+            System.out.println("Either username or password is incorrect.");
+            return false;
+        }
+>>>>>>> Stashed changes
     }
 
     public static void main(String[] args) {
@@ -71,6 +93,7 @@ public class Main {
         boolean isRunning = true;
         StoredUser.User TestUser = new User(
                 new RegLog.Registration("Human Person", "+27111111111", "example@gmail.com", "Bot_", "I'mABot2"));
+<<<<<<< Updated upstream
 
         while (isRunning) {
             PrintOptionMenu();
@@ -87,6 +110,29 @@ public class Main {
                 LoggedIn = CanLogin(MainUser);
             }
 
+=======
+
+        StoredUser.User MainUser = null;
+
+        while (isRunning) {
+            PrintOptionMenu();
+            String UserOption = in.next();
+
+            if (UserOption.equals("1")) {
+                MainUser = PrintRegistorMenu();
+            } else if (UserOption.equals("2")) {
+                if (MainUser == null) {
+                    System.out.println("No user registered yet.");
+                } else {
+                    boolean loggedIn = CanLogin(MainUser);
+                    if (loggedIn) {
+                        System.out.println("Login successful.");
+                    }
+                }
+            } else if (UserOption.equals("3")) {
+                isRunning = false;
+            }
+>>>>>>> Stashed changes
         }
 
         in.close();
