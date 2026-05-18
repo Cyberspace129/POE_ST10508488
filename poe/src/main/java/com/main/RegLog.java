@@ -11,7 +11,7 @@ public class RegLog {
         String Password;
 
         Registration(String FullName_, String Phonenumber_, String Email_, String Username_, String Password_) {
-<<<<<<< Updated upstream
+
             if (Validation.Is_Correct_UserName(Username_)) {
                 Username = Username_;
             }
@@ -27,8 +27,7 @@ public class RegLog {
             FullName = FullName_;
 
         }
-=======
->>>>>>> Stashed changes
+
 
             if (!Validation.Is_Correct_UserName(Username_))
                 throw new IllegalArgumentException("Invalid username");
@@ -121,7 +120,7 @@ public class RegLog {
             } else {
                 System.out.println("Email successfully added");
             }
-<<<<<<< Updated upstream
+
             if (!Email.matches("[?=@]")) {
                 HasEmailAt = false;
             }
@@ -137,10 +136,8 @@ public class RegLog {
             }
 
             return HasEmailName & HasEmailAt & HasEmailProvider & HasEmailDomain;
-=======
 
             return valid;
->>>>>>> Stashed changes
         }
     }
 }
