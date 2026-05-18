@@ -39,32 +39,6 @@ public class Main {
         return new User(new RegLog.Registration(FullName, Phonenumber, Email, Username, Password));
     }
 
-<<<<<<< Updated upstream
-    public static boolean CanLogin(StoredUser.User User) {
-        Scanner in = new Scanner(System.in);
-        boolean IsCorrectUserName = true;
-        boolean IsCorrectUserPass = true;
-
-        if (IsCorrectUserName & IsCorrectUserPass) {
-            System.out.println("welcom back " + User.UserName + ".");
-        }
-        System.out.println("Enter Username\n:");
-        String username = in.nextLine();
-
-        System.out.println("Enter Password\n:");
-        String password = in.nextLine();
-
-        if (!username.equals(User.UserName)) {
-            IsCorrectUserName = false;
-        }
-        if (!password.equals(User.Password))
-
-            if (!(IsCorrectUserName & IsCorrectUserPass)) {
-                System.out.println("Ether Password or Username does not match.");
-            }
-
-        return IsCorrectUserName & IsCorrectUserPass;
-=======
     public static boolean CanLogin(StoredUser.User user) {
         Scanner in = new Scanner(System.in);
 
@@ -84,7 +58,7 @@ public class Main {
             System.out.println("Either username or password is incorrect.");
             return false;
         }
->>>>>>> Stashed changes
+
     }
 
     public static void main(String[] args) {
@@ -93,7 +67,6 @@ public class Main {
         boolean isRunning = true;
         StoredUser.User TestUser = new User(
                 new RegLog.Registration("Human Person", "+27111111111", "example@gmail.com", "Bot_", "I'mABot2"));
-<<<<<<< Updated upstream
 
         while (isRunning) {
             PrintOptionMenu();
@@ -102,7 +75,7 @@ public class Main {
 
             String UserOption = in.next();
 
-            StoredUser.User MainUser;
+            StoredUser.User MainUser = null;
 
             if (UserOption.equals("1")) {
                 MainUser = PrintRegistorMenu();
@@ -110,31 +83,28 @@ public class Main {
                 LoggedIn = CanLogin(MainUser);
             }
 
-=======
+            while (isRunning) {
+                PrintOptionMenu();
+                String UserSubOption = in.next();
 
-        StoredUser.User MainUser = null;
-
-        while (isRunning) {
-            PrintOptionMenu();
-            String UserOption = in.next();
-
-            if (UserOption.equals("1")) {
-                MainUser = PrintRegistorMenu();
-            } else if (UserOption.equals("2")) {
-                if (MainUser == null) {
-                    System.out.println("No user registered yet.");
-                } else {
-                    boolean loggedIn = CanLogin(MainUser);
-                    if (loggedIn) {
-                        System.out.println("Login successful.");
+                if (UserSubOption.equals("1")) {
+                    MainUser = PrintRegistorMenu();
+                } else if (UserOption.equals("2")) {
+                    if (MainUser == null) {
+                        System.out.println("No user registered yet.");
+                    } else {
+                        boolean loggedIn = CanLogin(MainUser);
+                        if (loggedIn) {
+                            System.out.println("Login successful.");
+                        }
                     }
+                } else if (UserOption.equals("3")) {
+                    isRunning = false;
                 }
-            } else if (UserOption.equals("3")) {
-                isRunning = false;
-            }
->>>>>>> Stashed changes
-        }
 
-        in.close();
+            }
+
+            in.close();
+        }
     }
 }

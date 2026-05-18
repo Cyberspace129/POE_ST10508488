@@ -12,34 +12,21 @@ public class RegLog {
 
         Registration(String FullName_, String Phonenumber_, String Email_, String Username_, String Password_) {
 
-            if (Validation.Is_Correct_UserName(Username_)) {
-                Username = Username_;
-            }
-            if (Validation.Is_Correct_PhoneNumber(Phonenumber_)) {
-                Phonenumber = Phonenumber_;
-            }
-            if (Validation.Is_Correct_Email(Email_)) {
-                Email = Email_;
-            }
-            if (Validation.Is_Correct_Password(Password_)) {
-                Password = Password_;
-            }
-            FullName = FullName_;
-
-        }
-
-
-            if (!Validation.Is_Correct_UserName(Username_))
+            if (!Validation.Is_Correct_UserName(Username_)) {
                 throw new IllegalArgumentException("Invalid username");
+            }
 
-            if (!Validation.Is_Correct_PhoneNumber(Phonenumber_))
+            if (!Validation.Is_Correct_PhoneNumber(Phonenumber_)) {
                 throw new IllegalArgumentException("Invalid phone number");
+            }
 
-            if (!Validation.Is_Correct_Email(Email_))
+            if (!Validation.Is_Correct_Email(Email_)) {
                 throw new IllegalArgumentException("Invalid email");
+            }
 
-            if (!Validation.Is_Correct_Password(Password_))
+            if (!Validation.Is_Correct_Password(Password_)) {
                 throw new IllegalArgumentException("Invalid password");
+            }
 
             this.FullName = FullName_;
             this.Username = Username_;
@@ -121,23 +108,8 @@ public class RegLog {
                 System.out.println("Email successfully added");
             }
 
-            if (!Email.matches("[?=@]")) {
-                HasEmailAt = false;
-            }
-            if (!Email.matches("(?<=[@]).[a-z]+(?=[.])")) {
-                HasEmailProvider = false;
-            }
-            if (!Email.matches("(?<=[.])")) { // bayden@gmail.edu
-                HasEmailDomain = false;
-            }
-
-            if (HasEmailName & HasEmailAt & HasEmailProvider & HasEmailDomain) {
-                System.out.println("Email successfully added");
-            }
-
-            return HasEmailName & HasEmailAt & HasEmailProvider & HasEmailDomain;
-
             return valid;
+
         }
     }
 }

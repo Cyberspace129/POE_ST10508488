@@ -1,42 +1,47 @@
 package com.main;
 
-java.util.Random;
+import java.util.Random;
 
 public class Message {
 
-    public static class Message {
-        
-        Random rd = new Random();
-        
-        int MessageID;
-        int NumberMessage;
-        String OtherNumebr;
-        String MessageSending;
-        String MessageHash;
-    
-        Message(int NumberMessage_, String OtherNumebr_, String MessageSending_, ) {
-            MessageID = GenerateID();
-            NumberMessage = NumberMessage_;
-            OtherNumebr = OtherNumebr_;
-            MessageSending = MessageSending_;
-            MessageHash = GenerateHash(MessageSending_);
+    private static final Random rd = new Random();
+
+    private final long messageID;
+    private final int numberMessage;
+    private final String otherNumber;
+    private final String messageSending;
+    private final String messageHash;
+
+    public Message(int numberMessage_, String otherNumber_, String messageSending_) {
+        messageID = generateID();
+        numberMessage = numberMessage_;
+        otherNumber = otherNumber_;
+        messageSending = messageSending_;
+        messageHash = generateHash(this).toUpperCase();
+    }
+
+    private static String generateHash(Message message) {
+        return message.messageID + ":" + message.numberMessage + ":" + findFirstWord(message.messageSending)
+                + findLastWord(message.messageSending);
+    }
+
+    private static long generateID() {
+        return Math.abs(rd.nextLong() % 9_999_999_999L) + 1_000_000_000L;
+    }
+
+    private static String findFirstWord(String messageSending) {
+        int index = messageSending.indexOf(" ");
+        if (index == -1) {
+            return messageSending;
         }
-        
-        public static String GenerateHash(Message Message){
-            return MessageID.substring(0,1) + ":" + NumberMessage + ":" + FindFirstWord(MessageSending) + FindLastWord(MessageSending)
+        return messageSending.substring(0, index);
+    }
+
+    private static String findLastWord(String messageSending) {
+        int index = messageSending.lastIndexOf(" ");
+        if (index == -1) {
+            return messageSending;
         }
-        public static int GenerateID(){
-            // https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/random/package-summary.html
-            return (rd.nextInt(8_999_999_999) + 1_000_000_000)
-            
-        }
-        public static String FindFirstWord(Message Message){
-            int Index = Message.MessageSending.indexof(" "); // https://www.w3schools.com/java/ref_string_indexof.asp
-            return Message.MessageSending.substring(0,Index);
-        }
-        public static String FindLastWord(Message Message){
-            int Index = Message.MessageSending.lastIndexof(" ");
-            return Message.MessageSending.substring(Index,Message.MessageSending.length());
-        }
+        return messageSending.substring(index);
     }
 }
