@@ -1,0 +1,13 @@
+{
+    "Messages": [
+        {
+            "Message_00": {
+                "Message_ID": "1020398475",
+                "Message_Hash": "00:0:TESTCASE",
+                "Message_Sender": "+27111111111",
+                "Message_Resever": "+27222222222",
+                "Message": "Test example case"
+            }
+        }
+    ]
+}

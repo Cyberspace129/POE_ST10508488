@@ -21,6 +21,7 @@ public class Message {
     }
 
     private static String generateHash(Message message) {
+        String Short_ID = String.valueOf(message.messageID).substring(0, 2);
         return message.messageID + ":" + message.numberMessage + ":" + findFirstWord(message.messageSending)
                 + findLastWord(message.messageSending);
     }
@@ -44,4 +45,25 @@ public class Message {
         }
         return messageSending.substring(index);
     }
+
+    public long getMessageID() {
+        return messageID;
+    }
+
+    public int getNumberMessage() {
+        return numberMessage;
+    }
+
+    public String getOtherNumber() {
+        return otherNumber;
+    }
+
+    public String getMessageSending() {
+        return messageSending;
+    }
+
+    public String getMessageHash() {
+        return messageHash;
+    }
+
 }
